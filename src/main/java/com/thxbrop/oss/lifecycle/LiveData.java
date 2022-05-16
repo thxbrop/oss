@@ -34,8 +34,7 @@ public abstract class LiveData<T> {
     public boolean removeObserver(Observer<T> observer) {
         for (Map.Entry<LifecycleOwner, Observer<T>> entry : observers.entrySet()) {
             if (entry.getValue() == observer) {
-                observers.remove(entry.getKey());
-                return true;
+                return removeObserver(entry.getKey());
             }
         }
         return observersForever.remove(observer);
