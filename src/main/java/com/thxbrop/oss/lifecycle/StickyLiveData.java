@@ -28,18 +28,7 @@ public class StickyLiveData<T> extends MutableLiveData<T> {
     }
 
     @Override
-    public void observe(LifecycleOwner owner, Observer<T> observer) {
-        super.observe(owner, observer);
-        sticky(observer);
-    }
-
-    @Override
-    public void observeForever(Observer<T> observer) {
-        super.observeForever(observer);
-        sticky(observer);
-    }
-
-    private void sticky(Observer<T> observer) {
-        if (value != null || allowNull) observer.onChanged(value);
+    public void setValue(T value) {
+        if (value != null || allowNull) super.setValue(value);
     }
 }
