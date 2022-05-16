@@ -30,9 +30,7 @@ public class CommodityDaoImpl implements CommodityDao {
 
     @Override
     public boolean delete(int commodityId) {
-        try (PreparedStatement statement = connection.prepareStatement(
-                "DELETE FROM commodity WHERE id = ?")
-        ) {
+        try (PreparedStatement statement = connection.prepareStatement("DELETE FROM commodity WHERE id = ?")) {
             statement.setInt(1, commodityId);
             return statement.execute();
         } catch (SQLException e) {
@@ -44,9 +42,7 @@ public class CommodityDaoImpl implements CommodityDao {
     @Override
     public Commodity find(int commodityId) {
         Commodity commodity = null;
-        try (PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM commodity WHERE id = ?")
-        ) {
+        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM commodity WHERE id = ?")) {
             statement.setInt(1, commodityId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -66,9 +62,7 @@ public class CommodityDaoImpl implements CommodityDao {
     @Override
     public List<Commodity> findAll() {
         ArrayList<Commodity> list = new ArrayList<>();
-        try (PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM commodity")
-        ) {
+        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM commodity")) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Commodity commodity = new Commodity(

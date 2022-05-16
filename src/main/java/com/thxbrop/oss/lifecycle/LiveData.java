@@ -23,7 +23,6 @@ public abstract class LiveData<T> {
         return observers.get(owner);
     }
 
-
     public List<Observer<T>> getObserversForever() {
         return observersForever;
     }
