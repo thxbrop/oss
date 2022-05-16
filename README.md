@@ -1,6 +1,8 @@
 ## Online Shopping System (OSS)
 
-> 华信软件学院 2020级 大二 JavaWeb 实验二
+- 本人**天津理工大学** 华信软件学院 2020级大二学生
+- 当前项目：JavaWeb 实验二
+- 本人技术栈：Android原生开发
 
 当前进度：
 
