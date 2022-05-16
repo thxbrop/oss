@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.thxbrop.oss.DBFactory;
 import com.thxbrop.oss.controller.CommodityController;
 import com.thxbrop.oss.entity.Commodity;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +18,7 @@ public class CommodityServlet extends HttpServlet {
     private static final String ID = "id";
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String uri = req.getRequestURI();
         CommodityController controller = DBFactory.getCommodityController();
         resp.setContentType("application/json");
@@ -34,5 +33,6 @@ public class CommodityServlet extends HttpServlet {
             String json = new Gson().toJson(commodity);
             resp.getWriter().append(json);
         }
+        controller.close();
     }
 }
