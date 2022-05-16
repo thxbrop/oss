@@ -1,0 +1,52 @@
+package com.thxbrop.oss.controller;
+
+import com.thxbrop.oss.entity.Commodity;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.thxbrop.oss.util.thread.ThreadUtil.repeat;
+
+public class CommodityControllerMock implements CommodityController {
+    private static ArrayList<Commodity> list;
+
+    public CommodityControllerMock() {
+        list = new ArrayList<>();
+        repeat(5, i -> list.add(new Commodity(i, String.valueOf(i), i * 100)));
+    }
+
+    @Override
+    public int addCommodity(Commodity... commodities) {
+        int res = 0;
+        for (Commodity commodity : commodities) {
+            if (list.add(commodity)) {
+                res++;
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public boolean deleteCommodity(int commodityId) {
+        return list.removeIf(commodity -> commodity.getId() == commodityId);
+    }
+
+    @Override
+    public Commodity findById(int commodityId) {
+        for (Commodity c : list) {
+            if (c.getId() == commodityId) return c;
+        }
+        return null;
+    }
+
+    @Override
+    public List<Commodity> findAll() {
+        return list;
+    }
+
+    @Override
+    public List<Commodity> findAll(int limit) {
+        return list.stream().limit(limit).collect(Collectors.toList());
+    }
+}
