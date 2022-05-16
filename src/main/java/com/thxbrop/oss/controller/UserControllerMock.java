@@ -2,6 +2,7 @@ package com.thxbrop.oss.controller;
 
 import com.thxbrop.oss.Result;
 import com.thxbrop.oss.entity.User;
+import com.thxbrop.oss.util.Logger;
 import com.thxbrop.oss.util.StringUtil;
 
 import java.util.ArrayList;
@@ -81,5 +82,10 @@ public class UserControllerMock implements UserController {
         list.remove(user);
         list.add(newUser);
         return new Result<>(user);
+    }
+
+    @Override
+    public void close() {
+        Logger.t("UserControllerMock", "closed");
     }
 }

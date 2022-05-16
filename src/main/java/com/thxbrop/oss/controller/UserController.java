@@ -3,9 +3,10 @@ package com.thxbrop.oss.controller;
 import com.thxbrop.oss.Result;
 import com.thxbrop.oss.entity.User;
 
+import java.io.Closeable;
 import java.util.List;
 
-public interface UserController {
+public interface UserController extends Closeable {
     Result<User> register(String email, String username, String password);
 
     Result<User> login(String email, String password);

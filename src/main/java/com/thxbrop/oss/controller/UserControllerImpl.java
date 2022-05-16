@@ -8,13 +8,15 @@ import com.thxbrop.oss.entity.User;
 import com.thxbrop.oss.util.StringUtil;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class UserControllerImpl implements UserController {
     private final UserDao dao;
+    private final Connection connection;
 
     public UserControllerImpl() {
-        Connection connection = ConnectionManager.getInstance().getConnection();
+        connection = ConnectionManager.getInstance().getConnection();
         dao = new UserDaoImpl(connection);
     }
 
@@ -83,5 +85,14 @@ public class UserControllerImpl implements UserController {
             dao.updateRole(email, role);
         }
         return getByEmail(email);
+    }
+
+    @Override
+    public void close() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

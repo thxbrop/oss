@@ -6,14 +6,16 @@ import com.thxbrop.oss.dao.CommodityDaoImpl;
 import com.thxbrop.oss.entity.Commodity;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class CommodityControllerImpl implements CommodityController {
     private final CommodityDao dao;
+    private final Connection connection;
 
     public CommodityControllerImpl() {
-        Connection connection = ConnectionManager.getInstance().getConnection();
+        connection = ConnectionManager.getInstance().getConnection();
         dao = new CommodityDaoImpl(connection);
     }
 
@@ -45,5 +47,14 @@ public class CommodityControllerImpl implements CommodityController {
     @Override
     public List<Commodity> findAll(int limit) {
         return dao.findAll().stream().limit(limit).collect(Collectors.toList());
+    }
+
+    @Override
+    public void close() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.thxbrop.oss.controller;
 
 import com.thxbrop.oss.entity.Commodity;
+import com.thxbrop.oss.util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,5 +49,10 @@ public class CommodityControllerMock implements CommodityController {
     @Override
     public List<Commodity> findAll(int limit) {
         return list.stream().limit(limit).collect(Collectors.toList());
+    }
+
+    @Override
+    public void close() {
+        Logger.t("CommodityControllerMock", "closed");
     }
 }
