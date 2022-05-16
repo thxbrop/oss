@@ -19,6 +19,11 @@ public abstract class LiveData<T> {
         return observers;
     }
 
+    public Observer<T> getObserver(LifecycleOwner owner) {
+        return observers.get(owner);
+    }
+
+
     public List<Observer<T>> getObserversForever() {
         return observersForever;
     }
