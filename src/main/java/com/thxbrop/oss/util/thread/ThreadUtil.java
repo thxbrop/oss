@@ -29,7 +29,7 @@ public class ThreadUtil {
 
     public static void repeat(int count, Repeatable repeatable) {
         for (int i = 0; i < count; i++) {
-            repeatable.run(i + 1);
+            repeatable.run(i);
         }
     }
 }
