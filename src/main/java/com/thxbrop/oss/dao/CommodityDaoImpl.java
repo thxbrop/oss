@@ -1,6 +1,7 @@
 package com.thxbrop.oss.dao;
 
 import com.thxbrop.oss.entity.Commodity;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ public class CommodityDaoImpl implements CommodityDao {
     }
 
     @Override
-    public boolean insert(Commodity commodity) {
+    public boolean insert(@NotNull Commodity commodity) {
         try (PreparedStatement statement = connection.prepareStatement("INSERT INTO commodity (name,price) VALUES (?,?) ")) {
             statement.setString(1, commodity.getName());
             statement.setFloat(2, commodity.getPrice());

@@ -6,6 +6,7 @@ import com.thxbrop.oss.dao.UserDao;
 import com.thxbrop.oss.dao.UserDaoImpl;
 import com.thxbrop.oss.entity.User;
 import com.thxbrop.oss.util.StringUtil;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -71,7 +72,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    public Result<User> update(String email, String username, String password, Integer role) {
+    public Result<User> update(@NotNull String email, String username, String password, Integer role) {
         if (StringUtil.isNullOrEmpty(email)) {
             return new Result<>("Email required");
         }
