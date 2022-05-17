@@ -11,4 +11,13 @@ public class Result<T> {
     public Result(T value) {
         this.value = value;
     }
+
+    public boolean isSuccess() {
+        return message == null;
+    }
+
+    public Event<T> asEvent() {
+        if (isSuccess()) return new Event<>(value);
+        else return new Event<>(message);
+    }
 }

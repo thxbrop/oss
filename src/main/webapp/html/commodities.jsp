@@ -27,8 +27,8 @@
                         insertCommodityItem(n.id, n.name, n.price)
                     })
                 },
-                error: function (data) {
-                    alert(data)
+                error: function (message) {
+                    alert(message)
                 }
             })
         }

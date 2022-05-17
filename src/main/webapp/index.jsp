@@ -1,7 +1,3 @@
-<%@ page import="com.thxbrop.oss.util.CookieUtil" %>
-<%@ page import="com.thxbrop.oss.entity.User" %>
-<%@ page import="com.thxbrop.oss.Result" %>
-<%@ page import="com.thxbrop.oss.DBFactory" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -11,16 +7,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
         <link rel="icon" type="image/svg+xml" href="https://developer.android.com/images/picto-icons/learn.svg">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     </head>
-
-    <%
-        String email = CookieUtil.getCookie(request, "email");
-        String password = CookieUtil.getCookie(request, "password");
-        Result<User> result = DBFactory.getUserController().getByEmail(email);
-    %>
 
     <body class="bg-dark">
         <header class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
@@ -30,17 +21,8 @@
                         <a class="nav-link active" aria-current="page" href="#">主页</a>
                     </li>
                 </ul>
-                <div class="align-content-end">
-                    <%if (result.value != null && result.value.getPassword().equals(password)) {%>
-                    <a class="nav-link" href="${pageContext.request.contextPath}/html/profiles.jsp">个人中心</a>
-                    <%} else {%>
-                    <button class="btn btn-primary" id="register" type="button" data-bs-target="#model-register"
-                            data-bs-toggle="modal">注册
-                    </button>
-                    <button class="btn btn-secondary" id="login" type="button" data-bs-target="#model-login"
-                            data-bs-toggle="modal">登录
-                    </button>
-                    <%}%>
+                <div class="align-content-end btn-group" id="toolbar-btn-group">
+
                 </div>
             </div>
         </header>
@@ -147,22 +129,30 @@
                 success: function (data) {
                     alertInRegister(data.username, "success")
                 },
-                error: function (data) {
-                    alertInRegister(data, "warning")
+                error: function (message) {
+                    alertInRegister(message, "warning")
                 }
             })
         })
 
         $("#btn-login").click(function () {
             $.ajax({
-                url: "${pageContext.request.contextPath}/user",
-                type: "put",
+                url: "${pageContext.request.contextPath}/account",
+                type: "get",
                 dataType: "json",
-                success: function (data) {
-                    alertInLogin(data.username, "success")
+                data: {
+                    "email": $("#input-login-email").val(),
+                    "password": $("#input-login-password").val()
                 },
-                error: function (data) {
-                    alertInLogin(data, "warning")
+                success: function (data) {
+                    if (data.status === 'success') {
+                        alertInLogin(data.value.username, "success")
+                        Cookies.set("email", data.value.email)
+                        Cookies.set("password", data.value.password)
+                        location.reload()
+                    } else {
+                        alertInLogin(data.status, "warning")
+                    }
                 }
             })
         })
@@ -176,7 +166,53 @@
             new bootstrap.Toast(toastLiveExample).show()
         }
 
+        async function checkUser(email, password) {
+            $.ajax({
+                url: "${pageContext.request.contextPath}/user",
+                type: "get",
+                dataType: "json",
+                data: {
+                    'email': email,
+                    'onlyPassword': 1
+                },
+                success: function (data) {
+                    if (data.status === 'success') {
+                        return data.value === password
+                    } else {
+                        return false
+                    }
+                }
+            })
+        }
+
         toast("欢迎来到线上考试管理系统")
 
+        const email = Cookies.get("email")
+        const password = Cookies.get("password")
+        const container = $('#toolbar-btn-group')
+        if (!checkUser(email, password)) {
+            const btn_register = document.createElement('button')
+            const btn_login = document.createElement('button')
+            btn_register.id = "register"
+            btn_login.id = "login"
+            btn_register.type = "button"
+            btn_login.type = "button"
+            btn_register.innerText = "注册"
+            btn_login.innerText = "登录"
+            btn_register.className = "btn btn-primary"
+            btn_login.className = "btn btn-secondary"
+            btn_register.setAttribute('data-bs-target', '#model-register')
+            btn_login.setAttribute('data-bs-target', '#model-login')
+            btn_register.setAttribute('data-bs-toggle', 'modal')
+            btn_login.setAttribute('data-bs-toggle', 'modal')
+            container.append(btn_register)
+            container.append(btn_login)
+        } else {
+            const link = document.createElement('a')
+            link.className = "nav-link"
+            link.href = "${pageContext.request.contextPath}/html/profiles.jsp"
+            link.innerText = "个人中心"
+            container.append(link)
+        }
     </script>
 </html>
