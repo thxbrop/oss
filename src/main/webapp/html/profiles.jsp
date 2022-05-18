@@ -1,16 +1,15 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: qq277
-  Date: 2022/5/17
-  Time: 10:42
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="com.thxbrop.oss.Contracts" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
         <title>Profiles</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/svg+xml" href="<%=Contracts.ICON%>">
+        <script src="<%=Contracts.JQUERY_JS%>"></script>
+        <script src="<%=Contracts.COOKIE_JS%>"></script>
+        <link href="<%=Contracts.BOOTSTRAP_CSS%>" rel="stylesheet">
+        <script src="<%=Contracts.BOOTSTRAP_JS%>"></script>
     </head>
     <body>
 

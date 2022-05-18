@@ -1,20 +1,21 @@
-package com.thxbrop.oss.controller;
+package com.thxbrop.oss.repository;
 
 import com.thxbrop.oss.entity.Commodity;
 import com.thxbrop.oss.util.Logger;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.thxbrop.oss.util.thread.ThreadUtil.repeat;
 
-public class CommodityControllerMock implements CommodityController {
+public class CommodityRepositoryMock implements CommodityRepository {
     private static ArrayList<Commodity> list;
 
-    public CommodityControllerMock() {
+    public CommodityRepositoryMock() {
         list = new ArrayList<>();
-        repeat(5, i -> list.add(new Commodity(i, String.valueOf(i), i * 100)));
+        repeat(5, i -> list.add(new Commodity(i, String.valueOf(i), i * 100, "", Collections.emptyList())));
     }
 
     @Override

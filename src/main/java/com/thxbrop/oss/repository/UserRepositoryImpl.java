@@ -1,4 +1,4 @@
-package com.thxbrop.oss.controller;
+package com.thxbrop.oss.repository;
 
 import com.thxbrop.oss.ConnectionManager;
 import com.thxbrop.oss.Result;
@@ -12,11 +12,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-public class UserControllerImpl implements UserController {
+public class UserRepositoryImpl implements UserRepository {
     private final UserDao dao;
     private final Connection connection;
 
-    public UserControllerImpl() {
+    public UserRepositoryImpl() {
         connection = ConnectionManager.getInstance().getConnection();
         dao = new UserDaoImpl(connection);
     }

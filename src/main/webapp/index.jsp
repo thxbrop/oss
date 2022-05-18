@@ -1,16 +1,16 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.thxbrop.oss.Contracts" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>线上考试管理系统</title>
+        <title>OSS</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
-        <link rel="icon" type="image/svg+xml" href="https://developer.android.com/images/picto-icons/learn.svg">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="icon" type="image/svg+xml" href="<%=Contracts.ICON%>">
+        <script src="<%=Contracts.JQUERY_JS%>"></script>
+        <script src="<%=Contracts.COOKIE_JS%>"></script>
+        <link href="<%=Contracts.BOOTSTRAP_CSS%>" rel="stylesheet">
+        <script src="<%=Contracts.BOOTSTRAP_JS%>"></script>
     </head>
 
     <body class="bg-dark">
@@ -26,6 +26,12 @@
                 </div>
             </div>
         </header>
+
+        <div class="container py-5">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="commodity-recommend">
+
+            </div>
+        </div>
 
         <div class="modal fade" id="model-register" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
              aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -146,7 +152,6 @@
                 },
                 success: function (data) {
                     if (data.status === 'success') {
-                        alertInLogin(data.value.username, "success")
                         Cookies.set("email", data.value.email)
                         Cookies.set("password", data.value.password)
                         location.reload()
@@ -185,7 +190,35 @@
             })
         }
 
-        toast("欢迎来到线上考试管理系统")
+        function addItem(src, name, commodityId) {
+            const wrapper = document.createElement('div')
+            wrapper.className = 'card'
+            //wrapper.style.setProperty('width', '18rem')
+            const image = document.createElement('img')
+            image.className = 'card-img-top'
+            image.src = src
+            image.alt = name
+            wrapper.append(image)
+            const body = document.createElement('div')
+            body.className = 'card-body'
+            const p = document.createElement('p')
+            p.className = 'card-text fw-bold'
+            p.innerText = name
+            body.append(p)
+            wrapper.append(body)
+            wrapper.click(function () {
+                alert(commodityId)
+            })
+            const a = document.createElement('a')
+            a.href = "${pageContext.request.contextPath}/commodityDetail.jsp"
+            a.className = "btn btn-primary"
+            a.innerText = "查看详情"
+            wrapper.append(a)
+            const col = document.createElement('div')
+            col.className = "col"
+            col.append(wrapper)
+            $('#commodity-recommend').append(col)
+        }
 
         const email = Cookies.get("email")
         const password = Cookies.get("password")
@@ -211,8 +244,19 @@
             const link = document.createElement('a')
             link.className = "nav-link"
             link.href = "${pageContext.request.contextPath}/html/profiles.jsp"
-            link.innerText = "个人中心"
+            link.innerText = "购物车"
             container.append(link)
         }
+
+        addItem("https://cbu01.alicdn.com/img/ibank/2018/617/111/8854111716_1435007588.jpg", "抱枕", 1)
+        addItem("https://cbu01.alicdn.com/img/ibank/2018/617/111/8854111716_1435007588.jpg", "抱枕", 1)
+        addItem("https://cbu01.alicdn.com/img/ibank/2018/617/111/8854111716_1435007588.jpg", "抱枕", 1)
+        addItem("https://cbu01.alicdn.com/img/ibank/2018/617/111/8854111716_1435007588.jpg", "抱枕", 1)
+        addItem("https://cbu01.alicdn.com/img/ibank/2018/617/111/8854111716_1435007588.jpg", "抱枕", 1)
+        addItem("https://cbu01.alicdn.com/img/ibank/2018/617/111/8854111716_1435007588.jpg", "抱枕", 1)
+        addItem("https://cbu01.alicdn.com/img/ibank/2018/617/111/8854111716_1435007588.jpg", "抱枕", 1)
+        addItem("https://cbu01.alicdn.com/img/ibank/2018/617/111/8854111716_1435007588.jpg", "抱枕", 1)
+        addItem("https://cbu01.alicdn.com/img/ibank/2018/617/111/8854111716_1435007588.jpg", "抱枕", 1)
+        addItem("https://cbu01.alicdn.com/img/ibank/2018/617/111/8854111716_1435007588.jpg", "抱枕", 1)
     </script>
 </html>

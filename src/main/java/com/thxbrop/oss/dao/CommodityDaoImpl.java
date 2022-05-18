@@ -1,6 +1,9 @@
 package com.thxbrop.oss.dao;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.thxbrop.oss.entity.Commodity;
+import com.thxbrop.oss.util.GsonUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.Connection;
@@ -19,9 +22,11 @@ public class CommodityDaoImpl implements CommodityDao {
 
     @Override
     public boolean insert(@NotNull Commodity commodity) {
-        try (PreparedStatement statement = connection.prepareStatement("INSERT INTO commodity (name,price) VALUES (?,?) ")) {
+        try (PreparedStatement statement = connection.prepareStatement("INSERT INTO commodity (name,price,img,tags) VALUES (?,?,?,?) ")) {
             statement.setString(1, commodity.getName());
             statement.setFloat(2, commodity.getPrice());
+            statement.setString(3, commodity.getImg());
+            statement.setString(4, new Gson().toJson(commodity.getTags()));
             return statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -46,11 +51,14 @@ public class CommodityDaoImpl implements CommodityDao {
         try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM commodity WHERE id = ?")) {
             statement.setInt(1, commodityId);
             ResultSet resultSet = statement.executeQuery();
+            TypeToken<List<String>> typeToken = GsonUtil.getTypeToken();
             if (resultSet.next()) {
                 commodity = new Commodity(
                         resultSet.getInt("id"),
                         resultSet.getString("name"),
-                        resultSet.getFloat("price")
+                        resultSet.getFloat("price"),
+                        resultSet.getString("img"),
+                        new Gson().fromJson(resultSet.getString("tags"), typeToken.getType())
                 );
             }
             resultSet.close();
@@ -65,11 +73,14 @@ public class CommodityDaoImpl implements CommodityDao {
         ArrayList<Commodity> list = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM commodity")) {
             ResultSet resultSet = statement.executeQuery();
+            TypeToken<List<String>> typeToken = GsonUtil.getTypeToken();
             while (resultSet.next()) {
                 Commodity commodity = new Commodity(
                         resultSet.getInt("id"),
                         resultSet.getString("name"),
-                        resultSet.getFloat("price")
+                        resultSet.getFloat("price"),
+                        resultSet.getString("img"),
+                        new Gson().fromJson(resultSet.getString("tags"), typeToken.getType())
                 );
                 list.add(commodity);
             }

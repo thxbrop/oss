@@ -1,4 +1,4 @@
-package com.thxbrop.oss.controller;
+package com.thxbrop.oss.repository;
 
 import com.thxbrop.oss.Result;
 import com.thxbrop.oss.entity.User;
@@ -10,10 +10,10 @@ import java.util.List;
 
 import static com.thxbrop.oss.util.thread.ThreadUtil.repeat;
 
-public class UserControllerMock implements UserController {
+public class UserRepositoryMock implements UserRepository {
     private final ArrayList<User> list;
 
-    public UserControllerMock() {
+    public UserRepositoryMock() {
         list = new ArrayList<>();
         repeat(5, i -> list.add(new User(i, i + "", i + "", "User_" + i, 1)));
     }
@@ -21,7 +21,7 @@ public class UserControllerMock implements UserController {
     @Override
     public Result<User> register(String email, String username, String password) {
         int id = list.size();
-        User user = new User(id, id + "", id + "", "User_" + id, 1);
+        User user = new User(id, email, password, username == null ? "User_" + id : username, 1);
         list.add(user);
         return new Result<>(user);
     }

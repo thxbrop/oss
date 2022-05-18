@@ -1,4 +1,4 @@
-package com.thxbrop.oss.controller;
+package com.thxbrop.oss.repository;
 
 import com.thxbrop.oss.ConnectionManager;
 import com.thxbrop.oss.dao.CommodityDao;
@@ -10,11 +10,11 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CommodityControllerImpl implements CommodityController {
+public class CommodityRepositoryImpl implements CommodityRepository {
     private final CommodityDao dao;
     private final Connection connection;
 
-    public CommodityControllerImpl() {
+    public CommodityRepositoryImpl() {
         connection = ConnectionManager.getInstance().getConnection();
         dao = new CommodityDaoImpl(connection);
     }

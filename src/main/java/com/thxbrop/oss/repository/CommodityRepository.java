@@ -1,11 +1,11 @@
-package com.thxbrop.oss.controller;
+package com.thxbrop.oss.repository;
 
 import com.thxbrop.oss.entity.Commodity;
 
 import java.io.Closeable;
 import java.util.List;
 
-public interface CommodityController extends Closeable {
+public interface CommodityRepository extends Closeable {
     int addCommodity(Commodity... commodities);
 
     boolean deleteCommodity(int commodityId);

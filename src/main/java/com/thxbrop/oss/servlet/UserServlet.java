@@ -23,7 +23,11 @@ public class UserServlet extends HttpServlet {
         autoClosed(DBFactory.getUserController(), c -> {
             Result<User> result = c.getByEmail(email);
             if (onlyPassword) {
-                ServletUtil.append(resp, result.value.getPassword());
+                if (result.isSuccess()) {
+                    ServletUtil.append(resp, result.value.getPassword());
+                } else {
+                    ServletUtil.append(resp, null);
+                }
             } else {
                 ServletUtil.parseResult(resp, result);
             }

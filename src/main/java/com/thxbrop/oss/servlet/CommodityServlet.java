@@ -2,7 +2,7 @@ package com.thxbrop.oss.servlet;
 
 import com.google.gson.Gson;
 import com.thxbrop.oss.DBFactory;
-import com.thxbrop.oss.controller.CommodityController;
+import com.thxbrop.oss.repository.CommodityRepository;
 import com.thxbrop.oss.entity.Commodity;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,7 +20,7 @@ public class CommodityServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String uri = req.getRequestURI();
-        CommodityController controller = DBFactory.getCommodityController();
+        CommodityRepository controller = DBFactory.getCommodityController();
         resp.setContentType("application/json");
         if (uri.endsWith("/commodity")) {
             int limit = Integer.parseInt(req.getParameter(LIMIT));
