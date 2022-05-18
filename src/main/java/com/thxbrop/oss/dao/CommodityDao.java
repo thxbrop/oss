@@ -12,4 +12,8 @@ public interface CommodityDao {
     Commodity find(int commodityId);
 
     List<Commodity> findAll();
+
+    List<Commodity> searchByName(String name);
+
+    List<Commodity> searchByTag(String tag);
 }

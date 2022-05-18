@@ -11,27 +11,86 @@
         <script src="<%=Contracts.COOKIE_JS%>"></script>
         <link href="<%=Contracts.BOOTSTRAP_CSS%>" rel="stylesheet">
         <script src="<%=Contracts.BOOTSTRAP_JS%>"></script>
+        <style>
+            .myCard {
+                transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);
+            }
+
+            .myCard:hover {
+                transform: scale(1.05);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
+            }
+
+        </style>
     </head>
 
-    <body class="bg-dark">
-        <header class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <body>
+        <header class="p-3 bg-dark text-white">
             <div class="container">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">主页</a>
-                    </li>
-                </ul>
-                <div class="align-content-end btn-group" id="toolbar-btn-group">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
 
+                    </a>
+
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                        <li><a href="#" class="nav-link px-2 text-secondary">主页</a></li>
+                        <li><a href="#" class="nav-link px-2 text-white">
+                            分类
+                        </a></li>
+                        <li><a href="https://github.com/thxbrop/oss" class="nav-link px-2 text-white">
+                            获取最新源码
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-github" viewBox="0 0 16 16">
+                                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                            </svg>
+                        </a></li>
+                    </ul>
+
+                    <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search"
+                          action="${pageContext.request.contextPath}/commodity/search">
+                        <input type="search" class="form-control form-control-dark" placeholder="Search..."
+                               aria-label="Search" name="search">
+                    </form>
+
+                    <div class="text-end" id="toolbar-btn-group">
+                        <!-- ETC. -->
+                    </div>
                 </div>
             </div>
         </header>
 
         <div class="container py-5">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="commodity-recommend">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-3" id="commodity-recommend">
 
             </div>
         </div>
+
+        <footer class="bg-light d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <div class="col-md-4 d-flex align-items-center">
+                <a href="#" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+
+                </a>
+                <span class="mb-3 mb-md-0 text-muted">© 2022 Company, Inc</span>
+            </div>
+
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                <li class="ms-3"><a class="text-muted" href="#">
+                    <svg class="bi" width="24" height="24">
+                        <use xlink:href="#twitter"></use>
+                    </svg>
+                </a></li>
+                <li class="ms-3"><a class="text-muted" href="#">
+                    <svg class="bi" width="24" height="24">
+                        <use xlink:href="#instagram"></use>
+                    </svg>
+                </a></li>
+                <li class="ms-3"><a class="text-muted" href="#">
+                    <svg class="bi" width="24" height="24">
+                        <use xlink:href="#facebook"></use>
+                    </svg>
+                </a></li>
+            </ul>
+        </footer>
 
         <div class="modal fade" id="model-register" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
              aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -190,12 +249,11 @@
             })
         }
 
-        function addItem(src, name, commodityId) {
+        function addItem(src, name, commodityId, tags) {
             const wrapper = document.createElement('div')
-            wrapper.className = 'card'
-            //wrapper.style.setProperty('width', '18rem')
+            wrapper.className = 'card card-1 myCard'
             const image = document.createElement('img')
-            image.className = 'card-img-top'
+            image.className = 'card-img-top img-thumbnail'
             image.src = src
             image.alt = name
             wrapper.append(image)
@@ -204,16 +262,19 @@
             const p = document.createElement('p')
             p.className = 'card-text fw-bold'
             p.innerText = name
+            for (let i = 0; i < tags.length; i++) {
+                const tag = document.createElement('code')
+                tag.innerText = '#' + tags[i] + '\t'
+                tag.className = "user-select-none"
+                body.append(tag)
+            }
             body.append(p)
             wrapper.append(body)
-            wrapper.click(function () {
-                alert(commodityId)
-            })
             const a = document.createElement('a')
-            a.href = "${pageContext.request.contextPath}/commodityDetail.jsp"
+            a.href = "${pageContext.request.contextPath}/html/commodity.jsp?id=" + commodityId
             a.className = "btn btn-primary"
             a.innerText = "查看详情"
-            wrapper.append(a)
+            body.append(a)
             const col = document.createElement('div')
             col.className = "col"
             col.append(wrapper)
@@ -232,8 +293,8 @@
             btn_login.type = "button"
             btn_register.innerText = "注册"
             btn_login.innerText = "登录"
-            btn_register.className = "btn btn-primary"
-            btn_login.className = "btn btn-secondary"
+            btn_register.className = "btn btn-warning"
+            btn_login.className = "btn btn-outline-light me-2"
             btn_register.setAttribute('data-bs-target', '#model-register')
             btn_login.setAttribute('data-bs-target', '#model-login')
             btn_register.setAttribute('data-bs-toggle', 'modal')
@@ -241,22 +302,35 @@
             container.append(btn_register)
             container.append(btn_login)
         } else {
-            const link = document.createElement('a')
-            link.className = "nav-link"
+            const link = document.createElement('button')
+            link.type = "button"
+            link.className = "btn btn-outline-light me-2"
             link.href = "${pageContext.request.contextPath}/html/profiles.jsp"
             link.innerText = "购物车"
             container.append(link)
         }
 
-        addItem("https://cbu01.alicdn.com/img/ibank/2018/617/111/8854111716_1435007588.jpg", "抱枕", 1)
-        addItem("https://cbu01.alicdn.com/img/ibank/2018/617/111/8854111716_1435007588.jpg", "抱枕", 1)
-        addItem("https://cbu01.alicdn.com/img/ibank/2018/617/111/8854111716_1435007588.jpg", "抱枕", 1)
-        addItem("https://cbu01.alicdn.com/img/ibank/2018/617/111/8854111716_1435007588.jpg", "抱枕", 1)
-        addItem("https://cbu01.alicdn.com/img/ibank/2018/617/111/8854111716_1435007588.jpg", "抱枕", 1)
-        addItem("https://cbu01.alicdn.com/img/ibank/2018/617/111/8854111716_1435007588.jpg", "抱枕", 1)
-        addItem("https://cbu01.alicdn.com/img/ibank/2018/617/111/8854111716_1435007588.jpg", "抱枕", 1)
-        addItem("https://cbu01.alicdn.com/img/ibank/2018/617/111/8854111716_1435007588.jpg", "抱枕", 1)
-        addItem("https://cbu01.alicdn.com/img/ibank/2018/617/111/8854111716_1435007588.jpg", "抱枕", 1)
-        addItem("https://cbu01.alicdn.com/img/ibank/2018/617/111/8854111716_1435007588.jpg", "抱枕", 1)
+        function getRecommendCommodities() {
+            $.ajax({
+                url: "${pageContext.request.contextPath}/commodity/recommend",
+                type: "get",
+                dataType: "json",
+                data: {
+                    "limit": 10
+                },
+                success: function (data) {
+                    if (data.status === 'success') {
+                        for (let i = 0; i < data.value.length; i++) {
+                            const v = data.value[i]
+                            addItem(v.img, v.name, v.id, v.tags)
+                        }
+                    } else {
+
+                    }
+                }
+            })
+        }
+
+        getRecommendCommodities()
     </script>
 </html>

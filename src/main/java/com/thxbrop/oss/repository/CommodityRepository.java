@@ -15,4 +15,6 @@ public interface CommodityRepository extends Closeable {
     Commodity findById(int commodityId);
 
     List<Commodity> findAll(int limit);
+
+    List<Commodity> search(String s);
 }

@@ -90,4 +90,52 @@ public class CommodityDaoImpl implements CommodityDao {
         }
         return list;
     }
+
+    @Override
+    public List<Commodity> searchByName(String name) {
+        ArrayList<Commodity> list = new ArrayList<>();
+        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM commodity WHERE name LIKE ?")) {
+            statement.setString(1, "%" + name + "%");
+            ResultSet resultSet = statement.executeQuery();
+            TypeToken<List<String>> typeToken = GsonUtil.getTypeToken();
+            while (resultSet.next()) {
+                Commodity commodity = new Commodity(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getFloat("price"),
+                        resultSet.getString("img"),
+                        new Gson().fromJson(resultSet.getString("tags"), typeToken.getType())
+                );
+                list.add(commodity);
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public List<Commodity> searchByTag(String tag) {
+        ArrayList<Commodity> list = new ArrayList<>();
+        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM commodity WHERE tags LIKE ?")) {
+            statement.setString(1, "%" + tag + "%");
+            ResultSet resultSet = statement.executeQuery();
+            TypeToken<List<String>> typeToken = GsonUtil.getTypeToken();
+            while (resultSet.next()) {
+                Commodity commodity = new Commodity(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getFloat("price"),
+                        resultSet.getString("img"),
+                        new Gson().fromJson(resultSet.getString("tags"), typeToken.getType())
+                );
+                list.add(commodity);
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

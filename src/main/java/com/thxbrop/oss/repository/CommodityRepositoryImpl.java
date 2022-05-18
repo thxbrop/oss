@@ -4,9 +4,11 @@ import com.thxbrop.oss.ConnectionManager;
 import com.thxbrop.oss.dao.CommodityDao;
 import com.thxbrop.oss.dao.CommodityDaoImpl;
 import com.thxbrop.oss.entity.Commodity;
+import com.thxbrop.oss.util.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,5 +58,29 @@ public class CommodityRepositoryImpl implements CommodityRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public List<Commodity> search(String s) {
+        ArrayList<Commodity> arrayList = new ArrayList<>();
+        for (String tag : s.split(" ")) {
+            if (tag.startsWith("#")) {
+                String substring = tag.substring(1);
+                Logger.e(substring);
+                for (Commodity commodity : dao.searchByTag(substring)) {
+                    if (!arrayList.contains(commodity)) {
+                        arrayList.add(commodity);
+                    }
+                }
+
+            } else {
+                for (Commodity commodity : dao.searchByName(s)) {
+                    if (!arrayList.contains(commodity)) {
+                        arrayList.add(commodity);
+                    }
+                }
+            }
+        }
+        return arrayList;
     }
 }

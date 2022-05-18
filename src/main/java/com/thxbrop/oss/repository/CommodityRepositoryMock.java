@@ -56,4 +56,23 @@ public class CommodityRepositoryMock implements CommodityRepository {
     public void close() {
         Logger.t("CommodityControllerMock", "closed");
     }
+
+    @Override
+    public List<Commodity> search(String s) {
+        ArrayList<Commodity> arrayList = new ArrayList<>();
+        for (String tag : s.split(" ")) {
+            for (Commodity commodity : list) {
+                if (tag.startsWith("#")) {
+                    if (commodity.getTags().contains(s) && !arrayList.contains(commodity)) {
+                        arrayList.add(commodity);
+                    }
+                } else {
+                    if (commodity.getName().contains(s) && !arrayList.contains(commodity)) {
+                        arrayList.add(commodity);
+                    }
+                }
+            }
+        }
+        return arrayList;
+    }
 }
