@@ -4,7 +4,6 @@ import com.thxbrop.oss.ConnectionManager;
 import com.thxbrop.oss.dao.CommodityDao;
 import com.thxbrop.oss.dao.CommodityDaoImpl;
 import com.thxbrop.oss.entity.Commodity;
-import com.thxbrop.oss.util.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -66,7 +65,6 @@ public class CommodityRepositoryImpl implements CommodityRepository {
         for (String tag : s.split(" ")) {
             if (tag.startsWith("#")) {
                 String substring = tag.substring(1);
-                Logger.e(substring);
                 for (Commodity commodity : dao.searchByTag(substring)) {
                     if (!arrayList.contains(commodity)) {
                         arrayList.add(commodity);

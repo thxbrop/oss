@@ -1,11 +1,11 @@
 <%@ page import="com.thxbrop.oss.Contracts" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<html lang="zh">
     <head>
         <title>商品详情</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/svg+xml" href="<%=Contracts.ICON%>">
+        <link rel="icon" type="image/svg+xml" href="${pageContext.request.contextPath}/<%=Contracts.ICON%>">
         <script src="<%=Contracts.JQUERY_JS%>"></script>
         <script src="<%=Contracts.COOKIE_JS%>"></script>
         <link href="<%=Contracts.BOOTSTRAP_CSS%>" rel="stylesheet">
@@ -21,6 +21,8 @@
 
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li><a href="../index.jsp" class="nav-link px-2 text-white">主页</a></li>
+                        <li><a href="#" class="nav-link px-2 text-white">分类</a></li>
+                        <li><a href="#" class="nav-link px-2 text-white">订单</a></li>
                         <li><a href="https://github.com/thxbrop/oss" class="nav-link px-2 text-white">
                             获取最新源码
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -44,6 +46,19 @@
         <div class="container py-5">
             <div class="row row-cols-1 row-cols-md-2 g-3 light" id="commodity-detail">
 
+            </div>
+        </div>
+
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto" id="toast-from">系统消息</strong>
+                    <small id="toast-time">Just Now</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body" id="toast-body">
+                    Hello, world! This is a toast message.
+                </div>
             </div>
         </div>
     </body>
@@ -86,15 +101,21 @@
 
                         const btn_group = document.createElement('div')
                         btn_group.className = "d-grid gap-2 d-md-flex justify-content-md-end"
-                        const btnAddToChart = document.createElement('button')
-                        btnAddToChart.type = "button"
-                        btnAddToChart.className = "btn btn-primary me-md-2"
-                        btnAddToChart.innerText = "加入购物车"
+                        const btnAddToCart = document.createElement('button')
+                        btnAddToCart.type = "button"
+                        btnAddToCart.className = "btn btn-primary me-md-2"
+                        btnAddToCart.innerText = "加入购物车"
+                        btnAddToCart.onclick = function () {
+                            addToCart(value.id)
+                        }
                         const btnBuy = document.createElement('button')
                         btnBuy.type = "button"
                         btnBuy.className = "btn btn-outline-light"
                         btnBuy.innerText = "购买"
-                        btn_group.append(btnAddToChart)
+                        btnBuy.onclick = function () {
+                            makeSingleOrder(value.id)
+                        }
+                        btn_group.append(btnAddToCart)
                         btn_group.append(btnBuy)
                         detail.append(btn_group)
 
@@ -106,11 +127,24 @@
             })
         }
 
-        function loadCommodity(data) {
+        function makeSingleOrder(id) {
+            toast("订单已生成")
+        }
+
+        function addToCart(id) {
+            toast("加入购物车成功")
         }
 
         getCommodityById(${param.id})
 
+        const toastLiveExample = document.getElementById('liveToast');
+
+        function toast(message, from = "系统消息", time = "Just Now") {
+            document.getElementById("toast-body").innerText = message
+            document.getElementById("toast-from").innerText = from
+            document.getElementById("toast-time").innerText = time
+            new bootstrap.Toast(toastLiveExample).show()
+        }
     </script>
 
 

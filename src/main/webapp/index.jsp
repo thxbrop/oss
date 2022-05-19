@@ -1,12 +1,12 @@
 <%@ page import="com.thxbrop.oss.Contracts" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<html>
+<html lang="zh">
     <head>
         <title>OSS</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/svg+xml" href="<%=Contracts.ICON%>">
+        <link rel="icon" type="image/svg+xml" href="${pageContext.request.contextPath}/<%=Contracts.ICON%>">
         <script src="<%=Contracts.JQUERY_JS%>"></script>
         <script src="<%=Contracts.COOKIE_JS%>"></script>
         <link href="<%=Contracts.BOOTSTRAP_CSS%>" rel="stylesheet">
@@ -19,6 +19,27 @@
             .myCard:hover {
                 transform: scale(1.05);
                 box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
+            }
+
+            .wrapper {
+                position: relative;
+                overflow: hidden;
+            }
+
+            .wrapper:after {
+                content: '';
+                display: block;
+                padding-top: 100%;
+            }
+
+            .wrapper img {
+                width: auto;
+                height: 100%;
+                max-width: none;
+                position: absolute;
+                left: 50%;
+                top: 0;
+                transform: translateX(-50%);
             }
 
         </style>
@@ -34,9 +55,8 @@
 
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li><a href="#" class="nav-link px-2 text-secondary">主页</a></li>
-                        <li><a href="#" class="nav-link px-2 text-white">
-                            分类
-                        </a></li>
+                        <li><a href="#" class="nav-link px-2 text-white">分类</a></li>
+                        <li><a href="#" class="nav-link px-2 text-white">订单</a></li>
                         <li><a href="https://github.com/thxbrop/oss" class="nav-link px-2 text-white">
                             获取最新源码
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -65,28 +85,23 @@
             </div>
         </div>
 
-        <footer class="bg-light d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <footer class="bg-light d-flex flex-wrap justify-content-between align-items-center py-3 px-4 my-4 border-top">
             <div class="col-md-4 d-flex align-items-center">
-                <a href="#" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-
-                </a>
+                <a href="#" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">ThxBro:P</a>
                 <span class="mb-3 mb-md-0 text-muted">© 2022 Company, Inc</span>
             </div>
 
             <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-                <li class="ms-3"><a class="text-muted" href="#">
-                    <svg class="bi" width="24" height="24">
-                        <use xlink:href="#twitter"></use>
+                <li class="ms-3"><a class="text-muted" href="https://github.com/thxbrop">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-github" viewBox="0 0 16 16">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
                     </svg>
                 </a></li>
-                <li class="ms-3"><a class="text-muted" href="#">
-                    <svg class="bi" width="24" height="24">
-                        <use xlink:href="#instagram"></use>
-                    </svg>
-                </a></li>
-                <li class="ms-3"><a class="text-muted" href="#">
-                    <svg class="bi" width="24" height="24">
-                        <use xlink:href="#facebook"></use>
+                <li class="ms-3"><a class="text-muted" href="https://t.me/FloatDef">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-telegram" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8.154 8.154 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629.093.06.183.125.27.187.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.426 1.426 0 0 0-.013-.315.337.337 0 0 0-.114-.217.526.526 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09z"></path>
                     </svg>
                 </a></li>
             </ul>
@@ -253,26 +268,32 @@
             const wrapper = document.createElement('div')
             wrapper.className = 'card card-1 myCard'
             const image = document.createElement('img')
-            image.className = 'card-img-top img-thumbnail'
+            image.className = 'card-img-top'
             image.src = src
             image.alt = name
-            wrapper.append(image)
+            const imgWrapper = document.createElement('div')
+            imgWrapper.className = 'wrapper'
+            imgWrapper.append(image)
+            wrapper.append(imgWrapper)
             const body = document.createElement('div')
             body.className = 'card-body'
             const p = document.createElement('p')
-            p.className = 'card-text fw-bold'
+            p.className = 'card-text fw-bold text-truncate'
             p.innerText = name
+            const tagBody = document.createElement('div')
+            tagBody.className = "text-truncate"
             for (let i = 0; i < tags.length; i++) {
                 const tag = document.createElement('code')
                 tag.innerText = '#' + tags[i] + '\t'
                 tag.className = "user-select-none"
-                body.append(tag)
+                tagBody.append(tag)
             }
+            body.append(tagBody)
             body.append(p)
             wrapper.append(body)
             const a = document.createElement('a')
             a.href = "${pageContext.request.contextPath}/html/commodity.jsp?id=" + commodityId
-            a.className = "btn btn-primary"
+            a.className = "btn btn-primary stretched-link"
             a.innerText = "查看详情"
             body.append(a)
             const col = document.createElement('div')
