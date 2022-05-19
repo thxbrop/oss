@@ -45,7 +45,7 @@
         </style>
     </head>
 
-    <body>
+    <body class="overflow-hidden" scroll = "no">
         <header class="p-3 bg-dark text-white">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -297,7 +297,7 @@
             a.innerText = "查看详情"
             body.append(a)
             const col = document.createElement('div')
-            col.className = "col"
+            col.className = "col px-4"
             col.append(wrapper)
             $('#commodity-recommend').append(col)
         }

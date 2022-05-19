@@ -10,8 +10,9 @@
         <script src="<%=Contracts.COOKIE_JS%>"></script>
         <link href="<%=Contracts.BOOTSTRAP_CSS%>" rel="stylesheet">
         <script src="<%=Contracts.BOOTSTRAP_JS%>"></script>
+        <link rel="stylesheet" href="../css/text.css">
     </head>
-    <body class="bg-dark">
+    <body class="bg-dark overflow-hidden" scroll = "no">
         <header class="p-3 bg-dark text-white">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -96,11 +97,11 @@
 
                         const coin = document.createElement("p")
                         coin.innerText = "$ " + value.price
-                        coin.className = "fs-3 text text-light"
+                        coin.className = "fs-3 text text-light neon"
                         detail.append(coin)
 
                         const btn_group = document.createElement('div')
-                        btn_group.className = "d-grid gap-2 d-md-flex justify-content-md-end"
+                        btn_group.className = "d-grid gap-2 d-md-flex justify-content-md-end fixed-bottom m-5"
                         const btnAddToCart = document.createElement('button')
                         btnAddToCart.type = "button"
                         btnAddToCart.className = "btn btn-primary me-md-2"
