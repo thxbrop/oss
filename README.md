@@ -1,7 +1,5 @@
 ## Online Shopping System (OSS)
 
-- **天津理工大学** 华信软件学院 2020级本科二年级 学生
-- 作者主要技术栈：基于MVVM架构的Android应用层原生开发
 - 联系方式：[@sortBy](https://t.me/sortBy)
 - 当前项目：JavaWeb 实验二
 
