@@ -24,7 +24,7 @@ public class AccountServlet extends HttpServlet {
         String password = request.getParameter(PASSWORD);
         String username = request.getParameter(USERNAME);
         boolean isRegister = request.getParameter(IS_REGISTER) != null;
-        autoClosed(DBFactory.getUserController(), c -> {
+        autoClosed(DBFactory.getUserRepository(), c -> {
             Result<User> result;
             if (!isRegister) {
                 result = c.login(email, password);

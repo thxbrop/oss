@@ -1,6 +1,6 @@
 ## Online Shopping System (OSS)
 
-- **天津理工大学** 华信软件学院 2020级本科二年级 学生
+- **天津理工大学 - 华信软件学院** 2020级本科二年级 学生
 - 作者主要技术栈：基于MVVM架构的Android应用层原生开发
 - 联系方式：[@sortBy](https://t.me/sortBy)
 - 当前项目：JavaWeb 实验二
@@ -8,25 +8,26 @@
 #### 关于实验:
 
 - 基于**MVC架构**的在线购物系统
-- 时间：2022.05.09至今
+- 时间：2022.05.09至2022.05.22
 
 #### 当前进度：
 
 - [x] 基础架构
 - [x] 用户系统
-- [ ] 商品系统
-- [ ] 购物车系统
-- [ ] 订单系统
-- [ ] 前端界面
-- [ ] 前后端拼接
+- [x] 商品系统
+- [x] 购物车系统
+- [x] 订单系统
+- [x] 前端界面
+- [x] 前后端拼接
 - [ ] 其他优化
 
 #### 项目特色：
 
-- Reactive programing
+- Reactive Programing
 - Bootstrap 5
+- JQuery Ajax
 - Better coding style
-- Exchange data with Gson
+- Exchange data with JSON
 
 #### 在你的设备上运行
 

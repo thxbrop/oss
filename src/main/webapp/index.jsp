@@ -11,6 +11,7 @@
         <script src="<%=Contracts.COOKIE_JS%>"></script>
         <link href="<%=Contracts.BOOTSTRAP_CSS%>" rel="stylesheet">
         <script src="<%=Contracts.BOOTSTRAP_JS%>"></script>
+        <script src="js/index.js"></script>
         <style>
             .myCard {
                 transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);
@@ -45,8 +46,8 @@
         </style>
     </head>
 
-    <body class="overflow-hidden" scroll = "no">
-        <header class="p-3 bg-dark text-white">
+    <body class="user-select-none">
+        <header class="p-3 bg-dark text-white sticky-top">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                     <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
@@ -55,8 +56,8 @@
 
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li><a href="#" class="nav-link px-2 text-secondary">主页</a></li>
-                        <li><a href="#" class="nav-link px-2 text-white">分类</a></li>
-                        <li><a href="#" class="nav-link px-2 text-white">订单</a></li>
+                        <li><a href="html/category.jsp" class="nav-link px-2 text-white">分类</a></li>
+                        <li><a href="html/order.jsp" class="nav-link px-2 text-white">订单</a></li>
                         <li><a href="https://github.com/thxbrop/oss" class="nav-link px-2 text-white">
                             获取最新源码
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -80,12 +81,14 @@
         </header>
 
         <div class="container py-5">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-3" id="commodity-recommend">
+            <h2 class="h2" id="recommend">为你推荐🥰</h2>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-3 mt-2" id="commodity-recommend">
 
             </div>
+            <br class="mt-4">
         </div>
 
-        <footer class="bg-light d-flex flex-wrap justify-content-between align-items-center py-3 px-4 my-4 border-top">
+        <footer class="bg-light d-flex flex-wrap justify-content-between align-items-center py-3 px-4 mt-4 border-top fixed-bottom">
             <div class="col-md-4 d-flex align-items-center">
                 <a href="#" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">ThxBro:P</a>
                 <span class="mb-3 mb-md-0 text-muted">© 2022 Company, Inc</span>
@@ -245,25 +248,6 @@
             new bootstrap.Toast(toastLiveExample).show()
         }
 
-        async function checkUser(email, password) {
-            $.ajax({
-                url: "${pageContext.request.contextPath}/user",
-                type: "get",
-                dataType: "json",
-                data: {
-                    'email': email,
-                    'onlyPassword': 1
-                },
-                success: function (data) {
-                    if (data.status === 'success') {
-                        return data.value === password
-                    } else {
-                        return false
-                    }
-                }
-            })
-        }
-
         function addItem(src, name, commodityId, tags) {
             const wrapper = document.createElement('div')
             wrapper.className = 'card card-1 myCard'
@@ -305,7 +289,7 @@
         const email = Cookies.get("email")
         const password = Cookies.get("password")
         const container = $('#toolbar-btn-group')
-        if (!checkUser(email, password)) {
+        if (email == null || password == null || !checkUser("${pageContext.request.contextPath}", email, password)) {
             const btn_register = document.createElement('button')
             const btn_login = document.createElement('button')
             btn_register.id = "register"
@@ -314,7 +298,7 @@
             btn_login.type = "button"
             btn_register.innerText = "注册"
             btn_login.innerText = "登录"
-            btn_register.className = "btn btn-warning"
+            btn_register.className = "btn btn-warning me-2"
             btn_login.className = "btn btn-outline-light me-2"
             btn_register.setAttribute('data-bs-target', '#model-register')
             btn_login.setAttribute('data-bs-target', '#model-login')
@@ -323,10 +307,10 @@
             container.append(btn_register)
             container.append(btn_login)
         } else {
-            const link = document.createElement('button')
+            const link = document.createElement('a')
             link.type = "button"
             link.className = "btn btn-outline-light me-2"
-            link.href = "${pageContext.request.contextPath}/html/profiles.jsp"
+            link.href = "${pageContext.request.contextPath}/html/cart.jsp"
             link.innerText = "购物车"
             container.append(link)
         }
@@ -351,6 +335,7 @@
                 }
             })
         }
+
 
         getRecommendCommodities()
     </script>

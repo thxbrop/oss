@@ -11,8 +11,9 @@
         <link href="<%=Contracts.BOOTSTRAP_CSS%>" rel="stylesheet">
         <script src="<%=Contracts.BOOTSTRAP_JS%>"></script>
         <link rel="stylesheet" href="../css/text.css">
+        <script src="../js/index.js"></script>
     </head>
-    <body class="bg-dark overflow-hidden" scroll = "no">
+    <body class="bg-dark user-select-none">
         <header class="p-3 bg-dark text-white">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -90,18 +91,18 @@
                         detail.append(title)
                         for (let i = 0; i < value.tags.length; i++) {
                             const tag = document.createElement('span')
-                            tag.className = "fs-3 text text-primary user-select-none"
+                            tag.className = "fs-3 text text-primary"
                             tag.innerText = "#" + value.tags[i] + "\t"
                             detail.append(tag)
                         }
 
                         const coin = document.createElement("p")
                         coin.innerText = "$ " + value.price
-                        coin.className = "fs-3 text text-light neon"
+                        coin.className = "fs-2 text text-light neon"
                         detail.append(coin)
 
                         const btn_group = document.createElement('div')
-                        btn_group.className = "d-grid gap-2 d-md-flex justify-content-md-end fixed-bottom m-5"
+                        btn_group.className = "d-grid gap-2 d-md-flex justify-content-md-end"
                         const btnAddToCart = document.createElement('button')
                         btnAddToCart.type = "button"
                         btnAddToCart.className = "btn btn-primary me-md-2"
@@ -133,10 +134,27 @@
         }
 
         function addToCart(id) {
-            toast("加入购物车成功")
+            $.ajax({
+                url: "${pageContext.request.contextPath}/commodity",
+                method: "get",
+                dataType: "json",
+                data: {
+                    "id": id
+                },
+                success: function (data) {
+                    if (data.status === "success") {
+                        const value = data.value
+                        const cartJson = Cookies.get("cart")
+                        const cart = cartJson == null ? "[]" : cartJson
+                        const list = $.parseJSON(cart)
+                        list.push(value)
+                        Cookies.set("cart", JSON.stringify(list))
+                        toast("加入购物车成功")
+                    }
+                }
+            })
         }
 
-        getCommodityById(${param.id})
 
         const toastLiveExample = document.getElementById('liveToast');
 
@@ -146,6 +164,39 @@
             document.getElementById("toast-time").innerText = time
             new bootstrap.Toast(toastLiveExample).show()
         }
+
+        const email = Cookies.get("email")
+        const password = Cookies.get("password")
+        const container = $('#toolbar-btn-group')
+        const isLogin = checkUser("${pageContext.request.contextPath}", email, password)
+        if (email == null || password == null || !isLogin) {
+            const btn_register = document.createElement('button')
+            const btn_login = document.createElement('button')
+            btn_register.id = "register"
+            btn_login.id = "login"
+            btn_register.type = "button"
+            btn_login.type = "button"
+            btn_register.innerText = "注册"
+            btn_login.innerText = "登录"
+            btn_register.className = "btn btn-warning me-2"
+            btn_login.className = "btn btn-outline-light me-2"
+            btn_register.setAttribute('data-bs-target', '#model-register')
+            btn_login.setAttribute('data-bs-target', '#model-login')
+            btn_register.setAttribute('data-bs-toggle', 'modal')
+            btn_login.setAttribute('data-bs-toggle', 'modal')
+            container.append(btn_register)
+            container.append(btn_login)
+        } else {
+            const link = document.createElement('a')
+            link.type = "button"
+            link.className = "btn btn-outline-light me-2"
+            link.href = "${pageContext.request.contextPath}/html/cart.jsp"
+            link.innerText = "购物车"
+            container.append(link)
+        }
+
+        getCommodityById(${param.id})
+
     </script>
 
 

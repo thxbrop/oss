@@ -71,7 +71,7 @@ public class CommodityDaoImpl implements CommodityDao {
     @Override
     public List<Commodity> findAll() {
         ArrayList<Commodity> list = new ArrayList<>();
-        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM commodity")) {
+        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM commodity ORDER BY RAND()")) {
             ResultSet resultSet = statement.executeQuery();
             TypeToken<List<String>> typeToken = GsonUtil.getTypeToken();
             while (resultSet.next()) {

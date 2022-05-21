@@ -10,14 +10,18 @@ import java.util.Properties;
 
 public class DBFactory {
 
-    public static CommodityRepository getCommodityController() {
+    public static CommodityRepository getCommodityRepository() {
         if (isMockMode()) return new CommodityRepositoryMock();
         else return new CommodityRepositoryImpl();
     }
 
-    public static UserRepository getUserController() {
+    public static UserRepository getUserRepository() {
         if (isMockMode()) return new UserRepositoryMock();
         else return new UserRepositoryImpl();
+    }
+
+    public static OrderRepository getOrderRepository() {
+        return new OrderRepositoryImpl();
     }
 
     private static boolean isMockMode() {

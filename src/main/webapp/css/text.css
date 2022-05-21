@@ -4,12 +4,15 @@
     -webkit-animation: shining 2s alternate infinite;
     animation: shining 2s alternate infinite;
 }
+
 @-webkit-keyframes shining {
+
     from {
-        text-shadow: 0 0 10px lightblue, 0 0 20px lightblue, 0 0 30px lightblue, 0 0 40px skyblue, 0 0 50px skyblue, 0 0 60px skyblue;
+        text-shadow: 0 0 0 lightblue, 0 0 0 lightblue, 0 0 0 lightblue, 0 0 0 skyblue, 0 0 0 skyblue, 0 0 0 skyblue;
     }
 
     to {
-        text-shadow: 0 0 0 lightblue, 0 0 0 lightblue, 0 0 0 lightblue, 0 0 0 skyblue, 0 0 0 skyblue, 0 0 0 skyblue;
+        text-shadow: 0 0 10px lightblue, 0 0 20px lightblue, 0 0 30px lightblue, 0 0 40px skyblue, 0 0 50px skyblue, 0 0 60px skyblue;
     }
+
 }

@@ -17,7 +17,7 @@ public class GetByIdServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        CommodityRepository controller = DBFactory.getCommodityController();
+        CommodityRepository controller = DBFactory.getCommodityRepository();
         resp.setContentType("application/json");
         int id = Integer.parseInt(req.getParameter(ID));
         Commodity commodity = controller.findById(id);

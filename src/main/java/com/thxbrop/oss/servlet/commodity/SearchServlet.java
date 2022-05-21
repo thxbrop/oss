@@ -16,7 +16,7 @@ public class SearchServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
-        DBFactory.autoClosed(DBFactory.getCommodityController(), c -> {
+        DBFactory.autoClosed(DBFactory.getCommodityRepository(), c -> {
             List<Commodity> commodities = c.search(req.getParameter(SEARCH));
             ServletUtil.append(resp, commodities);
         });

@@ -18,7 +18,7 @@ public class RecommendServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        CommodityRepository controller = DBFactory.getCommodityController();
+        CommodityRepository controller = DBFactory.getCommodityRepository();
         resp.setContentType("application/json");
         int limit = Integer.parseInt(req.getParameter(LIMIT));
         List<Commodity> commodities = controller.findAll(limit);
